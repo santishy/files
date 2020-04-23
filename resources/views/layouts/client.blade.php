@@ -19,12 +19,11 @@
 <body>
     <div id="app">
       <header>
-        <nav class="row nav-client py-4">
-          <div class="container">
-
+        <nav class="nav-client py-4">
+          <div class="container d-flex">
+            <img src="{{asset('images/logo-horizontal.png')}}" class="img-fluid col-4" alt="">
+            <p>Formulario para inscripciones</p>
           </div>
-          <img src="{{asset('images/logo-horizontal.png')}}" class="img-fluid col-4" alt="">
-          <p>Formulario para inscripciones</p>
         </nav>
       </header>
         <main class="py-4">

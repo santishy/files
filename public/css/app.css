@@ -10882,3 +10882,13 @@ a.text-dark:focus {
   }
 }
 
+.header-container {
+  width: 100%;
+  max-width: 100%;
+}
+
+.nav-client {
+  width: 100%;
+  background: #003764;
+}
+
