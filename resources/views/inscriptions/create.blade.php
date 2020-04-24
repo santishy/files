@@ -1,4 +1,4 @@
 @extends('layouts.client')
 @section('content')
-  <form-inscription/>
+  <panel-inscription/>
 @endsection
