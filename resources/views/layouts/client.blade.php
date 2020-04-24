@@ -15,6 +15,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- Scripts -->
+    <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 <body>
     <div id="app">
@@ -29,8 +31,6 @@
         <main class="py-4">
             @yield('content')
         </main>
-        <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
     </div>
 </body>
 </html>

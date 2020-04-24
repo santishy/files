@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
       <div class="col-6">
         <div class="card text-center border-0 shadow-sm">
-          <form>
+          <form @submit="store">
             <div class="card-header">
               Documentos Digitales
             </div>
@@ -14,7 +14,7 @@
               </div>
               <div class="form-group">
                 <label for="">Acta de nacimiento</label>
-                <input type="file" name="birth_certificate" class="form-control" value="">
+                <input type="file" @change="upload" name="birth_certificate" class="form-control" value="">
               </div>
               <div class="form-group">
                 <label for="">Boleta de grado actual</label>
@@ -43,5 +43,19 @@
   </div>
 </template>
 <script>
+  export default{
+    data(){
+      return {
+        selectedFile:null
+      }
+    },
+    methods:{
+      store(){
 
+      },
+      upload(event){
+        
+      }
+    }
+  }
 </script>
