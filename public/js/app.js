@@ -1985,12 +1985,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -37762,57 +37756,127 @@ var render = function() {
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "col-6" }, [
         _c("div", { staticClass: "card text-center border-0 shadow-sm" }, [
-          _c("form", { on: { submit: _vm.store } }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("\n            Documentos Digitales\n          ")
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.name,
-                      expression: "name"
-                    }
-                  ],
-                  staticClass: "form-control border-0",
-                  attrs: {
-                    type: "text",
-                    placeholder: "Nombre Completo Del Alumno",
-                    name: "name"
-                  },
-                  domProps: { value: _vm.name },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.name = $event.target.value
-                    }
-                  }
-                })
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.store($event)
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "card-header" }, [
+                _vm._v("\n            Documentos Digitales\n          ")
               ]),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "form-group" },
-                [
-                  _c("input-file", {
+              _c("div", { staticClass: "card-body" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.name,
+                        expression: "name"
+                      }
+                    ],
+                    staticClass: "form-control border-0",
                     attrs: {
-                      name: "birth_certificate",
-                      description: "Acta de nacimiento"
+                      type: "text",
+                      placeholder: "Nombre Completo Del Alumno",
+                      name: "name"
+                    },
+                    domProps: { value: _vm.name },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.name = $event.target.value
+                      }
                     }
                   })
-                ],
-                1
-              )
-            ]),
-            _vm._v(" "),
-            _vm._m(0)
-          ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "d-flex justify-content-center flex-wrap" },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "form-group mr-1" },
+                      [
+                        _c("input-file", {
+                          attrs: {
+                            name: "birth_certificate",
+                            description: "Acta de nacimiento"
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group mr-1" },
+                      [
+                        _c("input-file", {
+                          attrs: {
+                            name: "current_grade_report_card",
+                            description: "Boleta de grado actual"
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group mr-1" },
+                      [
+                        _c("input-file", {
+                          attrs: {
+                            name: "previous_grade_report_card",
+                            description: "Boleta de grado anterior"
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group mr-1" },
+                      [
+                        _c("input-file", {
+                          attrs: { name: "curp", description: "CURP" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("input-file", {
+                          attrs: {
+                            name: "pic",
+                            description: "Fotografía del alumno"
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _vm._m(0)
+            ]
+          )
         ])
       ])
     ])
@@ -37824,7 +37888,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-footer text-muted" }, [
-      _c("button", { staticClass: "btn btn-primary" }, [_vm._v("Guardar")])
+      _c("button", { staticClass: "btn btn-primary btn-block" }, [
+        _vm._v("Guardar")
+      ])
     ])
   }
 ]
