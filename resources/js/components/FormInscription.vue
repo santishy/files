@@ -9,12 +9,18 @@
             </div>
             <div class="card-body">
               <div class="form-group">
-                <label>Nombre del alumno</label>
-                <input type="text" name="name" class="form-control" value="">
+                <input type="text"
+                       placeholder="Nombre Completo Del Alumno"
+                       name="name"
+                       class="form-control border-0" 
+                       v-model="name">
               </div>
               <div class="form-group">
+                <input-file name="birth_certificate" description="Acta de nacimiento"/>
+              </div>
+              <!-- <div class="form-group">
                 <label for="">Acta de nacimiento</label>
-                <input type="file" @change="upload" name="birth_certificate" class="form-control" value="">
+                <input type="file" name="birth_certificate" class="form-control" value="">
               </div>
               <div class="form-group">
                 <label for="">Boleta de grado actual</label>
@@ -31,7 +37,7 @@
               <div class="form-group">
                 <label for="">Fotografía del estudiante</label>
                 <input type="file" name="pic" class="form-control"value="">
-              </div>
+              </div> -->
             </div>
             <div class="card-footer text-muted">
               <button class="btn btn-primary">Guardar</button>
@@ -46,15 +52,30 @@
   export default{
     data(){
       return {
-        selectedFile:null
+        selectedFile:null,
+        formData:new FormData(),
+        name:''
       }
+    },
+    created(){
+      eventBus.$on('onFileSelected',this.attachToForm);
     },
     methods:{
       store(){
-
+        this.formData.append('name',this.name);
+        axios({
+          method:'POST',
+          url:'/files',
+          data:this.formData
+        }).then((res) => {
+          console.log(res)
+        }).catch((err) => {
+          console.log(err);
+        })
       },
-      upload(event){
-        
+
+      attachToForm(data){
+        this.formData.append(data.name,data.file,data.file.name)
       }
     }
   }

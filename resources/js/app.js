@@ -21,13 +21,14 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('form-inscription',require('./components/FormInscription.vue').default);
+Vue.component('input-file',require('./components/controls/InputFile.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
+window.eventBus = new Vue();
 const app = new Vue({
     el: '#app',
 });
