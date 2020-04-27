@@ -34,7 +34,7 @@ class FilesController extends Controller
      */
     public function store(Request $request)
     {
-      return response()->json(['files' => $request->files()]);
+      return response()->json(['files' => $request->files]);
         // $student = new Student();
         // $student->name = $request->name;
         // $student->save();
