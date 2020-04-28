@@ -1,7 +1,19 @@
 <template>
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-6">
+      <div class="col-md-6 col-xs-12 col-sm-12">
+        <div v-if="files.length" class="my-4">
+          <ul class="list-group">
+            <li v-for="file in files" class="list-group-item d-flex justify-content-between">
+              <div class="">
+                {{file.name}}
+              </div>
+              <button type="button" class="close" aria-label="Close" @click="">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          </li>
+          </ul>
+        </div>
         <div class="card text-center border-0 shadow-sm">
           <form @submit.prevent="store">
             <div class="card-header">
@@ -10,9 +22,10 @@
             <div class="card-body">
               <div class="form-group">
                 <input type="text"
-                       placeholder="Nombre Completo Del Alumno"
+                       placeholder="Ingresa El Nombre Completo Del Alumno"
                        name="name"
-                       class="form-control border-0"
+                       id="name"
+                       class="form-control border-0 text-center"
                        v-model="name">
               </div>
               <div class="d-flex justify-content-center flex-wrap">
@@ -48,7 +61,8 @@
       return {
         selectedFile:null,
         formData:new FormData(),
-        name:''
+        name:'',
+        files:[]
       }
     },
     created(){
@@ -70,7 +84,18 @@
 
       attachToForm(data){
         this.formData.append(data.name,data.file,data.file.name)
+        var file = this.files.find(file=>file.input===data.name)
+        var index = this.files.indexOf(file);
+        
+        if(index != -1)
+          return Vue.set(this.files[index],'name',data.file.name);
+        return this.files.push({name:data.file.name,input:data.name})
       }
     }
   }
 </script>
+<style media="screen">
+  #name::placeholder{
+    text-align:center;
+  }
+</style>

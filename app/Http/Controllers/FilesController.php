@@ -56,15 +56,15 @@ class FilesController extends Controller
          $curp['path'] = $request->file('curp')->storeAs('curp',$student->id);
          $pic['path'] = $request->file('pic')->storeAs('pic',$student->id);
 
-         $files = $student->files()->createMany([
-           $birthCertificate,
-           $currentGradeReportCard,
-           $previousGradeReportCard,
-           $curp,
-           $pic
+         $files = $student->files()->saveMany([
+           new File($birthCertificate),
+           new File($currentGradeReportCard),
+           new File($previousGradeReportCard),
+           new File($curp),
+           new File($pic)
          ]);
 
-         return response()->json(['files' => $files]);
+         return $files;
     }
 
     /**

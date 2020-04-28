@@ -9,6 +9,6 @@ class Student extends Model
     protected $fillable = ['name'];
 
     public function files(){
-      $this->hasMany(file::class);
+      return $this->hasMany('App\File');
     }
 }
