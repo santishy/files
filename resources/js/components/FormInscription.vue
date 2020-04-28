@@ -2,20 +2,28 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-6 col-xs-12 col-sm-12">
+        <div v-if="downloads.length" class="card border-0 shadow-sm my-4">
+          <p class="text-monospace"></p>
+          <ul>
+            <li v-for="download in downloads">
+              <a :href="'/files/'+download.path">Descargar {{download.path.split('/')[0]}}</a>
+            </li>
+          </ul>
+        </div>
         <div v-if="files.length" class="my-4">
           <ul class="list-group">
             <li v-for="(file,index) in files" class="list-group-item d-flex justify-content-between">
               <div class="">
                 {{file.name}}
               </div>
-              <button type="button" class="close" aria-label="Close" @click="delete(index)">
+              <button type="button" class="close" aria-label="Close" @click="deleteItem(index)">
                 <span aria-hidden="true">&times;</span>
               </button>
           </li>
           </ul>
         </div>
         <div class="card text-center border-0 shadow-sm">
-          <form @submit.prevent="store">
+          <form @submit.prevent="store" id="form-inscription">
             <div class="card-header">
               Documentos Digitales
             </div>
@@ -62,7 +70,8 @@
         selectedFile:null,
         formData:new FormData(),
         name:'',
-        files:[]
+        files:[],
+        downloads:[]
       }
     },
     created(){
@@ -76,7 +85,11 @@
           url:'/files',
           data:this.formData
         }).then((res) => {
-          console.log(res)
+          if(res.data.length){
+            this.files = [];
+            document.getElementById('form-inscription').reset();
+            this.downloads = res.data;
+          }
         }).catch((err) => {
           console.log(err);
         })
@@ -91,8 +104,8 @@
           return Vue.set(this.files[index],'name',data.file.name);
         return this.files.push({name:data.file.name,input:data.name})
       },
-       delete(index){
-        console.log('hola')
+       deleteItem(index){
+
         document.getElementById(this.files[index].input).value='';
         this.files.splice(index,1);
       }

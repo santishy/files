@@ -4,7 +4,7 @@
              :name="name"
              @change="onFileSelected"
              class="form-control"
-             id="name"
+             :id="name"
              ref="inputFile"
              style="display:none">
       <button type="button"

@@ -1998,13 +1998,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       selectedFile: null,
       formData: new FormData(),
       name: '',
-      files: []
+      files: [],
+      downloads: []
     };
   },
   created: function created() {
@@ -2012,13 +2021,19 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     store: function store() {
+      var _this = this;
+
       this.formData.append('name', this.name);
       axios({
         method: 'POST',
         url: '/files',
         data: this.formData
       }).then(function (res) {
-        console.log(res);
+        if (res.data.length) {
+          _this.files = [];
+          document.getElementById('form-inscription').reset();
+          _this.downloads = res.data;
+        }
       })["catch"](function (err) {
         console.log(err);
       });
@@ -2035,8 +2050,7 @@ __webpack_require__.r(__webpack_exports__);
         input: data.name
       });
     },
-    "delete": function _delete(index) {
-      console.log('hola');
+    deleteItem: function deleteItem(index) {
       document.getElementById(this.files[index].input).value = '';
       this.files.splice(index, 1);
     }
@@ -38422,8 +38436,219 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {}
-var staticRenderFns = []
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-6 col-xs-12 col-sm-12" }, [
+        _vm.downloads.length
+          ? _c("div", { staticClass: "card border-0 shadow-sm my-4" }, [
+              _c("p", { staticClass: "text-monospace" }),
+              _vm._v(" "),
+              _c(
+                "ul",
+                _vm._l(_vm.downloads, function(download) {
+                  return _c("li", [
+                    _c("a", { attrs: { href: "/files/" + download.path } }, [
+                      _vm._v("Descargar " + _vm._s(download.path.split("/")[0]))
+                    ])
+                  ])
+                }),
+                0
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.files.length
+          ? _c("div", { staticClass: "my-4" }, [
+              _c(
+                "ul",
+                { staticClass: "list-group" },
+                _vm._l(_vm.files, function(file, index) {
+                  return _c(
+                    "li",
+                    {
+                      staticClass:
+                        "list-group-item d-flex justify-content-between"
+                    },
+                    [
+                      _c("div", {}, [
+                        _vm._v(
+                          "\n              " +
+                            _vm._s(file.name) +
+                            "\n            "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "close",
+                          attrs: { type: "button", "aria-label": "Close" },
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteItem(index)
+                            }
+                          }
+                        },
+                        [
+                          _c("span", { attrs: { "aria-hidden": "true" } }, [
+                            _vm._v("×")
+                          ])
+                        ]
+                      )
+                    ]
+                  )
+                }),
+                0
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c("div", { staticClass: "card text-center border-0 shadow-sm" }, [
+          _c(
+            "form",
+            {
+              attrs: { id: "form-inscription" },
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.store($event)
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "card-header" }, [
+                _vm._v("\n            Documentos Digitales\n          ")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _c("div", { staticClass: "form-group" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.name,
+                        expression: "name"
+                      }
+                    ],
+                    staticClass: "form-control border-0 text-center",
+                    attrs: {
+                      type: "text",
+                      placeholder: "Ingresa El Nombre Completo Del Alumno",
+                      name: "name",
+                      id: "name"
+                    },
+                    domProps: { value: _vm.name },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.name = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "d-flex justify-content-center flex-wrap" },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "form-group mr-1" },
+                      [
+                        _c("input-file", {
+                          attrs: {
+                            name: "birth_certificate",
+                            description: "Acta de nacimiento"
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group mr-1" },
+                      [
+                        _c("input-file", {
+                          attrs: {
+                            name: "current_grade_report_card",
+                            description: "Boleta de grado actual"
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group mr-1" },
+                      [
+                        _c("input-file", {
+                          attrs: {
+                            name: "previous_grade_report_card",
+                            description: "Boleta de grado anterior"
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group mr-1" },
+                      [
+                        _c("input-file", {
+                          attrs: { name: "curp", description: "CURP" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("input-file", {
+                          attrs: {
+                            name: "pic",
+                            description: "Fotografía del alumno"
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _vm._m(0)
+            ]
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-footer text-muted" }, [
+      _c("button", { staticClass: "btn btn-primary btn-block" }, [
+        _vm._v("Guardar")
+      ])
+    ])
+  }
+]
+render._withStripped = true
 
 
 
@@ -38449,7 +38674,7 @@ var render = function() {
       ref: "inputFile",
       staticClass: "form-control",
       staticStyle: { display: "none" },
-      attrs: { type: "file", name: _vm.name, id: "name" },
+      attrs: { type: "file", name: _vm.name, id: _vm.name },
       on: { change: _vm.onFileSelected }
     }),
     _vm._v(" "),
@@ -50961,8 +51186,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\laragon\www\files\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\laragon\www\files\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/vagrant/code/files/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/vagrant/code/files/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
