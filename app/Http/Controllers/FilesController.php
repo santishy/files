@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use App\Student;
+use App\File;
 class FilesController extends Controller
 {
     /**
@@ -34,12 +37,34 @@ class FilesController extends Controller
      */
     public function store(Request $request)
     {
-      return response()->json(['files' => $request->files]);
-        // $student = new Student();
-        // $student->name = $request->name;
-        // $student->save();
-        // $birthCertificate = $request->file('birth_certificate')->storageAs('birth_certificates',$student->id);
+         $fileRule = 'required|file|max:2048';
+         Validator::make($request->all(),
+         [
+           'name' => 'required',
+           'birth_certificate' => $fileRule,
+           'current_grade_report_card' => $fileRule,
+           'previous_grade_report_card' => $fileRule,
+           'curp' => $fileRule,
+           'pic' => 'required|image|max:2048',
+         ])->validate();
 
+         $student = Student::create(['name' => $request->name]);
+
+         $birthCertificate['path'] = $request->file('birth_certificate')->storeAs('actas',$student->id);
+         $currentGradeReportCard['path'] = $request->file('current_grade_report_card')->storeAs('boletas_actuales',$student->id);
+         $previousGradeReportCard['path'] = $request->file('previous_grade_report_card')->storeAs('boletas_ateriores',$student->id);
+         $curp['path'] = $request->file('curp')->storeAs('curp',$student->id);
+         $pic['path'] = $request->file('pic')->storeAs('pic',$student->id);
+
+         $files = $student->files()->createMany([
+           $birthCertificate,
+           $currentGradeReportCard,
+           $previousGradeReportCard,
+           $curp,
+           $pic
+         ]);
+
+         return response()->json(['files' => $files]);
     }
 
     /**
