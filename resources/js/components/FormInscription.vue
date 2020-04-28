@@ -4,11 +4,11 @@
       <div class="col-md-6 col-xs-12 col-sm-12">
         <div v-if="files.length" class="my-4">
           <ul class="list-group">
-            <li v-for="file in files" class="list-group-item d-flex justify-content-between">
+            <li v-for="(file,index) in files" class="list-group-item d-flex justify-content-between">
               <div class="">
                 {{file.name}}
               </div>
-              <button type="button" class="close" aria-label="Close" @click="">
+              <button type="button" class="close" aria-label="Close" @click="delete(index)">
                 <span aria-hidden="true">&times;</span>
               </button>
           </li>
@@ -86,10 +86,15 @@
         this.formData.append(data.name,data.file,data.file.name)
         var file = this.files.find(file=>file.input===data.name)
         var index = this.files.indexOf(file);
-        
+
         if(index != -1)
           return Vue.set(this.files[index],'name',data.file.name);
         return this.files.push({name:data.file.name,input:data.name})
+      },
+       delete(index){
+        console.log('hola')
+        document.getElementById(this.files[index].input).value='';
+        this.files.splice(index,1);
       }
     }
   }
