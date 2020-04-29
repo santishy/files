@@ -2006,6 +2006,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2013,7 +2020,8 @@ __webpack_require__.r(__webpack_exports__);
       formData: new FormData(),
       name: '',
       files: [],
-      downloads: []
+      downloads: [],
+      load: false
     };
   },
   created: function created() {
@@ -2024,6 +2032,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.formData.append('name', this.name);
+      this.load = true;
       axios({
         method: 'POST',
         url: '/files',
@@ -2034,8 +2043,10 @@ __webpack_require__.r(__webpack_exports__);
           document.getElementById('form-inscription').reset();
           _this.downloads = res.data;
         }
+
+        _this.load = false;
       })["catch"](function (err) {
-        console.log(err);
+        _this.load = false;
       });
     },
     attachToForm: function attachToForm(data) {
@@ -38445,7 +38456,11 @@ var render = function() {
       _c("div", { staticClass: "col-md-6 col-xs-12 col-sm-12" }, [
         _vm.downloads.length
           ? _c("div", { staticClass: "card border-0 shadow-sm my-4" }, [
-              _c("p", { staticClass: "text-monospace" }),
+              _c(
+                "p",
+                { staticClass: "text-monospace text-bold text-center my-4" },
+                [_vm._v(_vm._s(_vm.name))]
+              ),
               _vm._v(" "),
               _c(
                 "ul",
@@ -38535,7 +38550,7 @@ var render = function() {
                         expression: "name"
                       }
                     ],
-                    staticClass: "form-control border-0 text-center",
+                    staticClass: "form-control  text-center",
                     attrs: {
                       type: "text",
                       placeholder: "Ingresa El Nombre Completo Del Alumno",
@@ -38628,7 +38643,22 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _vm._m(0)
+              _c("div", { staticClass: "card-footer text-muted" }, [
+                _c(
+                  "button",
+                  { staticClass: "btn btn-primary btn-block" },
+                  [
+                    !_vm.load
+                      ? [_vm._v("\n                Subir\n              ")]
+                      : [
+                          _vm._v(
+                            "\n                Cargando...\n              "
+                          )
+                        ]
+                  ],
+                  2
+                )
+              ])
             ]
           )
         ])
@@ -38636,18 +38666,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-footer text-muted" }, [
-      _c("button", { staticClass: "btn btn-primary btn-block" }, [
-        _vm._v("Guardar")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -51186,8 +51205,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/vagrant/code/files/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/vagrant/code/files/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\laragon\www\files\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\files\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

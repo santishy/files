@@ -3,7 +3,7 @@
     <div class="row justify-content-center">
       <div class="col-md-6 col-xs-12 col-sm-12">
         <div v-if="downloads.length" class="card border-0 shadow-sm my-4">
-          <p class="text-monospace"></p>
+          <p class="text-monospace text-bold text-center my-4">{{name}}</p>
           <ul>
             <li v-for="download in downloads">
               <a :href="'/files/'+download.path">Descargar {{download.path.split('/')[0]}}</a>
@@ -33,7 +33,7 @@
                        placeholder="Ingresa El Nombre Completo Del Alumno"
                        name="name"
                        id="name"
-                       class="form-control border-0 text-center"
+                       class="form-control  text-center"
                        v-model="name">
               </div>
               <div class="d-flex justify-content-center flex-wrap">
@@ -55,7 +55,14 @@
               </div>
             </div>
             <div class="card-footer text-muted">
-              <button class="btn btn-primary btn-block">Guardar</button>
+              <button class="btn btn-primary btn-block">
+                <template v-if="!load">
+                  Subir
+                </template>
+                <template v-else>
+                  Cargando...
+                </template>
+              </button>
             </div>
           </form>
         </div>
@@ -71,7 +78,8 @@
         formData:new FormData(),
         name:'',
         files:[],
-        downloads:[]
+        downloads:[],
+        load:false
       }
     },
     created(){
@@ -80,6 +88,7 @@
     methods:{
       store(){
         this.formData.append('name',this.name);
+        this.load = true;
         axios({
           method:'POST',
           url:'/files',
@@ -89,9 +98,11 @@
             this.files = [];
             document.getElementById('form-inscription').reset();
             this.downloads = res.data;
+
           }
+          this.load = false;
         }).catch((err) => {
-          console.log(err);
+            this.load = false;
         })
       },
 

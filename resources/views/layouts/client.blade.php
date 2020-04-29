@@ -23,8 +23,8 @@
       <header>
         <nav class="nav-client py-4">
           <div class="container d-flex justify-content-between align-items-center">
-            {{-- <img src="{{asset('images/logo-horizontal.png')}}" class="img-fluid col-4" alt=""> --}}
-            <p>Formulario para inscripciones</p>
+            <img src="{{asset('images/logo-horizontal.png')}}" class="img-fluid col-4" alt="">
+            {{-- <p>Formulario para inscripciones</p> --}}
           </div>
         </nav>
       </header>

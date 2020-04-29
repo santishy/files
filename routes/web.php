@@ -13,13 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','FilesController@create' );
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/inscripciones','FilesController@create')->name('inscripciones');
 Route::post('/files','FilesController@store')->name('store');
 Route::get('/files/{path}','FilesController@download')->where('path','.*');
